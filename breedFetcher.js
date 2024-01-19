@@ -1,31 +1,23 @@
 /* eslint-disable linebreak-style */
 const request = require('request');
 
-const cfaUrl = "http://cfa.org/Breeds/BreedsSthruT/Siberian.aspx";
-
-const fetchBreedDescription = function(breedName, callback) {
-
-};
-fetchBreedDescription('Siberian', (error, description) => {
-  request(cfaUrl, (error, response, body) => {
-    if (error) {
-      console.error('Error:', error);
-      return;
-    }
+const cfaUrl = 'https://api.thecatapi.com/v1/breeds/search?q=sib';
+request(cfaUrl, (error, response, body) => {
+  if (error) {
+    console.error('Error:', error);
+    return;
+  }
   
-    if (response.statusCode !== 200) {
-      console.error('Failed to fetch data. Status code:', response.statusCode);
-      return;
-    }
+  if (response.statusCode !== 200) {
+    console.error('Failed to fetch data. Status code:', response.statusCode);
+    return;
+  }
   
-    const data = JSON.parse(body);
-  
-    console.log('Fetched data:', data);
-  });
+  const data = JSON.parse(body);
+  console.log(typeof data);
+  const args = process.argv.slice(2);
+  console.log('Fetched data:', data[0]);
 
 });
-
-
-module.exports = { fetchBreedDescription };
 
 
